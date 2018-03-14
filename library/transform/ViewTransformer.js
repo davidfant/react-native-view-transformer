@@ -91,7 +91,7 @@ export default class ViewTransformer extends React.Component {
       onResponderTerminate: this.onResponderRelease.bind(this),
       onResponderTerminationRequest: (evt, gestureState) => false, //Do not allow parent view to intercept gesture
       onResponderSingleTapConfirmed: (evt, gestureState) => {
-        this.props.onSingleTapConfirmed && this.props.onSingleTapConfirmed();
+        this.props.onSingleTapConfirmed && this.props.onSingleTapConfirmed(evt);
       },
     });
   }
@@ -161,7 +161,7 @@ export default class ViewTransformer extends React.Component {
   }
 
   onResponderGrant(evt, gestureState) {
-    this.props.onTransformStart && this.props.onTransformStart();
+    this.props.onTransformStart && this.props.onTransformStart(evt);
     this.setState({responderGranted: true});
     this.measureLayout();
   }
@@ -215,7 +215,7 @@ export default class ViewTransformer extends React.Component {
         scale: this.state.scale,
         translateX: this.state.translateX,
         translateY: this.state.translateY
-      });
+      }, evt);
     if (handled) {
       return;
     }
